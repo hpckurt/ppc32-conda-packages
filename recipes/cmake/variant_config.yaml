@@ -1,0 +1,8 @@
+c_compiler:
+  - powerpc-espresso-linux-gnu-gcc
+
+cxx_compiler:
+  - powerpc-espresso-linux-gnu-gxx
+
+c_stdlib_version:
+  - 2.17

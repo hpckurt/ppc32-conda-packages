@@ -1,0 +1,50 @@
+context:
+  version: "1.4.19"
+
+package:
+  name: m4
+  version: ${{ version }}
+
+source:
+  url: http://ftp.gnu.org/gnu/m4/m4-${{ version }}.tar.gz
+  sha256: 3be4a26d825ffdfda52a56fc43246456989a3630093cced3fbddf4771ee58a70
+  patches:
+    # From Homebrew: https://raw.githubusercontent.com/macports/macports-ports/edf0ee1e2cf/devel/m4/files/secure_snprintf.patch
+    # broken?
+    # - secure_snprintf.patch
+
+build:
+  number: 1001
+
+requirements:
+  build:
+   # - {{ compiler('c') }}
+   # - libtool
+    - make
+
+tests:
+  - script:
+    - m4 --help
+    - m4 --version
+   # - conda inspect linkages -p $PREFIX m4  # [not win]
+   # - conda inspect objects -p $PREFIX m4  # [osx]
+
+about:
+  homepage: http://www.gnu.org/software/m4/
+  license: GPL-3.0
+  license_file: COPYING
+  summary: 'Implementation of the traditional Unix macro processor.'
+
+  description: |
+    GNU M4 is an implementation of the traditional Unix macro processor. It is
+    mostly SVR4 compatible although it has some extensions (for example,
+    handling more than 9 positional parameters to macros). GNU M4 also has
+    built-in functions for including files, running shell commands, doing
+    arithmetic, etc.
+  documentation: http://www.gnu.org/software/m4/manual/index.html
+  repository: http://git.savannah.gnu.org/gitweb/?p=m4.git
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - mingwandroid
