@@ -1,0 +1,58 @@
+{% set version = "2.4.7" %}
+
+package:
+  name: libtool
+  version: {{ version }}
+
+source:
+  url: http://ftpmirror.gnu.org/libtool/libtool-{{ version }}.tar.gz
+  sha256: 04e96c2404ea70c590c546eba4202a4e12722c640016c12b9b2f1ce3d481e9a8
+  patches:
+    # From: https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=557388;filename=link-as-needed.patch;msg=5
+    # See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=347650
+    # and: https://sigquit.wordpress.com/2011/02/16/why-asneeded-doesnt-work-as-expected-for-your-libraries-on-your-autotools-project/
+    - patches/0001-link-as-needed.patch
+    - patches/0002-apple-silicon.patch
+
+build:
+  number: 1
+  skip: true  # [win]
+  ignore_run_exports_from:
+    - {{ compiler('cxx') }}
+
+requirements:
+  build:
+    - {{ stdlib('c') }}
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - m4
+    - help2man
+    - autoconf
+    - automake
+    - make
+    - patch
+
+test:
+  requires:
+    - {{ compiler('cxx') }}
+
+about:
+  home: http://www.gnu.org/software/libtool/
+  license: GPL-2.0-or-later
+  license_file: COPYING
+  summary: The GNU Portable Library Tool
+  description: |
+    GNU libtool is a generic library support script. Libtool hides the
+    complexity of using shared libraries behind a consistent, portable
+    interface.
+  doc_url: http://www.gnu.org/software/libtool/manual/
+  dev_url: http://git.savannah.gnu.org/cgit/libtool.git
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - msarahan
+    - jakirkham
+    - mingwandroid
+    - isuruf
+    - saraedum

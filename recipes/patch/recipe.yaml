@@ -1,0 +1,39 @@
+package:
+  name: "patch"
+  version: "2.7.6"
+
+source:
+  url: https://ftp.gnu.org/gnu/patch/patch-2.7.6.tar.gz
+  sha256: 8cf86e00ad3aaa6d26aca30640e86b0e3e1f395ed99f189b06d4c9f74bc58a4e
+  patches:
+    # TODO: Figure out why fedora/suse/debian don't need this
+    - 0001-Relax-open-fds-count-for-deep-directories.patch  # [linux]
+
+build:
+  # Please increment by two
+  number: 0
+
+requirements:
+  build:
+    #- libtool  # [unix]
+    #- {{ compiler('c') }}
+    - make
+
+tests:
+  - script:
+    - patch --help
+
+about:
+  homepage: http://savannah.gnu.org/projects/patch/
+  license: GPL-3.0-or-later
+  license_file: COPYING
+  summary: Native Win32 versions of common unix tools
+  description: |
+    Patch takes a patch file containing a difference listing produced by the
+    diff program and applies those differences to one or more original files,
+    producing patched versions.
+  repository: http://git.savannah.gnu.org/cgit/patch.git
+
+extra:
+  recipe-maintainers:
+    - nehaljwani

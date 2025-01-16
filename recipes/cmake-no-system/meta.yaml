@@ -1,0 +1,55 @@
+{% set version = "3.31.4" %}
+{% set version_major_minor = ".".join(version.split(".")[:2]) %}
+
+package:
+  name: cmake-no-system
+  version: {{ version }}
+
+source:
+  - url: https://gitlab.kitware.com/cmake/cmake/-/archive/v{{ version }}/cmake-v{{ version }}.tar.bz2
+    sha256: 4f0bd6f4df9c607c1d219115bb2c574b8694ec885ec2cb0da3aceac352a56e26
+  - url: https://cmake.org/files/v{{ version_major_minor }}/cmake-{{ version }}-windows-x86_64.zip  # [win]
+    sha256: 1d6dd9b965dae78996fbb1d9de7603c0b532a54553c9d31492a5baec78444c86  # [win]
+    folder: cmake-{{ version }}-windows  # [win]
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ stdlib("c") }}
+    - {{ compiler('cxx') }}
+    - make  # [unix]
+    - ninja
+
+test:
+  commands:
+    - cmake --version
+    - ctest --version
+    - cpack --version
+
+about:
+  home: http://www.cmake.org/
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file:
+    - Copyright.txt
+    - Utilities/cmbzip2/LICENSE
+    - Utilities/cmcppdap/LICENSE
+    - Utilities/cmcurl/COPYING
+    - Utilities/cmexpat/COPYING
+    - Utilities/cmjsoncpp/LICENSE
+    - Utilities/cmlibarchive/COPYING
+    - Utilities/cmliblzma/COPYING
+    - Utilities/cmlibrhash/COPYING
+    - Utilities/cmlibuv/LICENSE
+    - Utilities/cmzlib/Copyright.txt
+    - Utilities/cmzstd/LICENSE
+  summary: CMake built without system libraries for use when building CMake dependencies.
+
+extra:
+  recipe-maintainers:
+    - jjhelmus
+    - beckermr
+    - xhochy

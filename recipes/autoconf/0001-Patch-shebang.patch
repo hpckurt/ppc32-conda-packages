@@ -1,0 +1,78 @@
+From ee1f3054d595d904446dababe0342a8ffb92b55f Mon Sep 17 00:00:00 2001
+From: Ray Donnelly <mingw.android@gmail.com>
+Date: Tue, 27 Jun 2017 08:32:12 +0100
+Subject: [PATCH 1/2] Patch shebang
+
+Credit to: ocefpaf@gmail.com
+---
+ bin/autoheader.in | 2 +-
+ bin/autom4te.in   | 2 +-
+ bin/autoreconf.in | 2 +-
+ bin/autoscan.in   | 2 +-
+ bin/autoupdate.in | 2 +-
+ bin/ifnames.in    | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/bin/autoheader.in b/bin/autoheader.in
+index 1cbf509..a5be61b 100644
+--- a/bin/autoheader.in
++++ b/bin/autoheader.in
+@@ -1,4 +1,4 @@
+-#! @PERL@
++#!@PERL@
+ # -*- Perl -*-
+ # @configure_input@
+ 
+diff --git a/bin/autom4te.in b/bin/autom4te.in
+index 7ebe419..e662f7e 100644
+--- a/bin/autom4te.in
++++ b/bin/autom4te.in
+@@ -1,4 +1,4 @@
+-#! @PERL@
++#!@PERL@
+ # -*- perl -*-
+ # @configure_input@
+ 
+diff --git a/bin/autoreconf.in b/bin/autoreconf.in
+index ec391a6..9bedc21 100644
+--- a/bin/autoreconf.in
++++ b/bin/autoreconf.in
+@@ -1,4 +1,4 @@
+-#! @PERL@
++#!@PERL@
+ # -*- perl -*-
+ # @configure_input@
+ 
+diff --git a/bin/autoscan.in b/bin/autoscan.in
+index b89fd1a..eb01f92 100644
+--- a/bin/autoscan.in
++++ b/bin/autoscan.in
+@@ -1,4 +1,4 @@
+-#! @PERL@
++#!@PERL@
+ # -*- perl -*-
+ # @configure_input@
+ 
+diff --git a/bin/autoupdate.in b/bin/autoupdate.in
+index c86203a..f72ec0e 100644
+--- a/bin/autoupdate.in
++++ b/bin/autoupdate.in
+@@ -1,4 +1,4 @@
+-#! @PERL@
++#!@PERL@
+ # -*- perl -*-
+ # @configure_input@
+ 
+diff --git a/bin/ifnames.in b/bin/ifnames.in
+index b04947f..b7f0180 100644
+--- a/bin/ifnames.in
++++ b/bin/ifnames.in
+@@ -1,4 +1,4 @@
+-#! @PERL@
++#!@PERL@
+ # -*- perl -*-
+ # @configure_input@
+ 
+-- 
+2.37.1 (Apple Git-137.1)
+

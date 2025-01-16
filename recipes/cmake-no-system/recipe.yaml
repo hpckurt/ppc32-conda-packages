@@ -1,0 +1,52 @@
+context:
+  version: "3.31.4"
+
+package:
+  name: cmake-no-system
+  version: ${{ version }}
+
+source:
+  - url: https://gitlab.kitware.com/cmake/cmake/-/archive/v${{ version }}/cmake-v${{ version }}.tar.bz2
+    sha256: 4f0bd6f4df9c607c1d219115bb2c574b8694ec885ec2cb0da3aceac352a56e26
+
+build:
+  number: 0
+
+requirements:
+  build:
+   # - {{ compiler('c') }}
+   # - {{ stdlib("c") }}
+   # - {{ compiler('cxx') }}
+    - make  # [unix]
+   # - ninja
+
+tests:
+  - script:
+    - cmake --version
+    - ctest --version
+    - cpack --version
+
+about:
+  homepage: http://www.cmake.org/
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file:
+    - Copyright.txt
+    - Utilities/cmbzip2/LICENSE
+    - Utilities/cmcppdap/LICENSE
+    - Utilities/cmcurl/COPYING
+    - Utilities/cmexpat/COPYING
+    - Utilities/cmjsoncpp/LICENSE
+    - Utilities/cmlibarchive/COPYING
+    - Utilities/cmliblzma/COPYING
+    - Utilities/cmlibrhash/COPYING
+    - Utilities/cmlibuv/LICENSE
+    - Utilities/cmzlib/Copyright.txt
+    - Utilities/cmzstd/LICENSE
+  summary: CMake built without system libraries for use when building CMake dependencies.
+
+extra:
+  recipe-maintainers:
+    - jjhelmus
+    - beckermr
+    - xhochy

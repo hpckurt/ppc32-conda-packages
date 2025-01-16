@@ -1,0 +1,60 @@
+{% set bootstrapping = os.environ.get('CONDA_BUILD_BOOTSTRAPPING', '') %}
+{% set name = "patch" %}
+{% set version = "2.7.6" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://ftp.gnu.org/gnu/patch/patch-{{ version }}.tar.gz
+  sha256: 8cf86e00ad3aaa6d26aca30640e86b0e3e1f395ed99f189b06d4c9f74bc58a4e
+  patches:
+    # TODO: Figure out why fedora/suse/debian don't need this
+    - 0001-Relax-open-fds-count-for-deep-directories.patch  # [linux]
+
+build:
+{% if bootstrapping == 'yes' %}
+  # Please increment by two
+  number: 0
+  string: h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_bootstrapping
+{% else %}
+  # Keep above the number of the _bootstrapping package
+  number: 1002
+  string: h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+{% endif %}
+  skip: True  # [win]
+
+requirements:
+  build:
+{% if bootstrapping != 'yes' %}
+    - libtool  # [unix]
+{% endif %}
+    - {{ compiler('c') }}
+    - make
+
+test:
+  commands:
+    - patch --help
+{% if bootstrapping != 'yes' %}
+  files:
+    - testfile
+    - testfile2
+    - testfile.patch
+{% endif %}
+
+about:
+  home: http://savannah.gnu.org/projects/patch/
+  license: GPL-3.0-or-later
+  license_file: COPYING
+  summary: Native Win32 versions of common unix tools
+  description: |
+    Patch takes a patch file containing a difference listing produced by the
+    diff program and applies those differences to one or more original files,
+    producing patched versions.
+  dev_url: http://git.savannah.gnu.org/cgit/patch.git
+
+extra:
+  recipe-maintainers:
+    - nehaljwani

@@ -1,0 +1,52 @@
+context:
+  version: "6.9.10"
+
+package:
+  name: oniguruma
+  version: ${{ version }}
+
+source:
+  url: https://github.com/kkos/oniguruma/releases/download/v${{ version }}/onig-${{ version }}.tar.gz
+  sha256: 2a5cfc5ae259e4e97f86b68dfffc152cdaffe94e2060b770cb827238d769fc05
+
+build:
+  number: 0
+  #run_exports:
+    # https://abi-laboratory.pro/index.php?view=timeline&l=oniguruma 
+   # - {{ pin_subpackage('oniguruma', max_pin='x.x') }}
+
+
+requirements:
+  build:
+    - gnuconfig  # [unix]
+    #- {{ compiler("c") }}
+    #- {{ stdlib("c") }}
+    - make
+  host:
+    #- msinttypes           # [win]
+
+tests:
+  - script:
+    # Check for headers.
+    - test -f "${PREFIX}/include/oniggnu.h"          # [unix]
+
+    # Check for libraries.
+    - test -f "${PREFIX}/lib/libonig.a"                # [unix]
+    - test -f "${PREFIX}/lib/libonig.so"               # [linux]
+
+    # Check for pkg-config file.
+    - test -f "${PREFIX}/lib/pkgconfig/oniguruma.pc"   # [unix]
+
+    # Check for config executable.
+    - onig-config --version                            # [unix]
+
+about:
+  homepage: https://github.com/kkos/oniguruma
+  license: BSD-2-Clause
+  license_file: COPYING
+  summary: A regular expression library.
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - kkos

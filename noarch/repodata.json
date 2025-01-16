@@ -3,6 +3,21 @@
     "subdir": "noarch"
   },
   "packages": {},
-  "packages.conda": {},
+  "packages.conda": {
+    "gnuconfig-2020.11.7-h4616a5c_0.conda": {
+      "build": "h4616a5c_0",
+      "build_number": 0,
+      "depends": [],
+      "license": "GPL-3.0-or-later WITH Autoconf-exception-2.0",
+      "md5": "c11f8da0f5e1b1ea927b99f9d19b8f97",
+      "name": "gnuconfig",
+      "noarch": "generic",
+      "sha256": "48529a78bf2e6bd0dd3319a0de34e4e903de24d6be74f3b4e920b09a79c178f4",
+      "size": 25200,
+      "subdir": "noarch",
+      "timestamp": 1736995726618,
+      "version": "2020.11.7"
+    }
+  },
   "repodata_version": 2
 }
