@@ -1,0 +1,37 @@
+context:
+  version: "1.5"
+
+package:
+  name: "cpp-tabulate"
+  version: ${{ version }}
+
+source:
+  url: https://github.com/p-ranav/tabulate/archive/v${{ version }}.tar.gz
+  sha256: 16b289f46306283544bb593f4601e80d6ea51248fde52e910cc569ef08eba3fb
+
+build:
+  number: 1
+
+requirements:
+  build:
+    #- {{ compiler('cxx') }}
+    - cmake
+    - make  # [unix]
+
+tests:
+  - script:
+    - test -d ${PREFIX}/include/tabulate  # [unix]
+    - test -f ${PREFIX}/include/tabulate/table.hpp  # [unix]
+
+about:
+  homepage: https://github.com/p-ranav/tabulate
+  license: MIT
+  license_file: LICENSE
+  summary: Tabulate is a header-only library for printing aligned, formatted, and colorized tables.
+
+extra:
+  recipe-maintainers:
+    - p-ranav
+    - SylvainCorlay
+    - wolfv
+    - marimeireles

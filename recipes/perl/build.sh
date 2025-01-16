@@ -11,7 +11,7 @@ if [[ "${target_platform}" == osx-* ]]; then
   fi
   ccflags="${CFLAGS} -fno-common -DPERL_DARWIN -no-cpp-precomp -Werror=partial-availability -D_DARWIN_FEATURE_CLOCK_GETTIME=0 -fno-strict-aliasing -pipe -fstack-protector-strong -DPERL_USE_SAFE_PUTENV ${archflags} ${CPPFLAGS}"
 elif [[ "${target_platform}" == linux-* ]]; then
-  ccflags="${CFLAGS} -D_REENTRANT -D_GNU_SOURCE -fwrapv -fno-strict-aliasing -pipe -fstack-protector-strong -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2"
+  ccflags="${CFLAGS} -D_REENTRANT -D_GNU_SOURCE -fwrapv -fno-strict-aliasing -pipe -fstack-protector-strong -mcpu=espresso -mno-altivec -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2"
 fi
 
 # world-writable files are not allowed
@@ -96,7 +96,6 @@ _config_args+=(
   "-Dcc=/root/toolchain/x-tools/powerpc-espresso-linux-gnu/bin/powerpc-espresso-linux-gnu-gcc"
 )
 
-CFLAGS="-mcpu=espresso -mno-altivec" \
 ./Configure -de "${_config_args[@]}"
 make
 

@@ -157,21 +157,6 @@
       "timestamp": 1736985354422,
       "version": "4.4.36"
     },
-    "perl-5.32.1-h00057fd_7.conda": {
-      "arch": "ppc",
-      "build": "h00057fd_7",
-      "build_number": 7,
-      "depends": [],
-      "license": "GPL-1.0-or-later OR Artistic-1.0-Perl",
-      "md5": "e326d6860307599f267f05658160d77f",
-      "name": "perl",
-      "platform": "linux",
-      "sha256": "fc708be2ab11b68600eff9946f0bbc3041f3029e8b07ec7a67d147bc2ce4797d",
-      "size": 13739513,
-      "subdir": "linux-ppc",
-      "timestamp": 1736991315522,
-      "version": "5.32.1"
-    },
     "help2man-1.49.3-h00057fd_0.conda": {
       "arch": "ppc",
       "build": "h00057fd_0",
@@ -301,6 +286,51 @@
       "subdir": "linux-ppc",
       "timestamp": 1737007426390,
       "version": "1.7.1"
+    },
+    "cpp-expected-1.1.0-h00057fd_0.conda": {
+      "arch": "ppc",
+      "build": "h00057fd_0",
+      "build_number": 0,
+      "depends": [],
+      "license": "CC0-1.0",
+      "md5": "e60017ffc1800e8cc2f87677de1617b1",
+      "name": "cpp-expected",
+      "platform": "linux",
+      "sha256": "68e35b36355b8c14d1f4649d100f8ccf10ca11d6e2dc00b3793efb9e909f72ab",
+      "size": 18078,
+      "subdir": "linux-ppc",
+      "timestamp": 1737042785995,
+      "version": "1.1.0"
+    },
+    "cpp-tabulate-1.5-h00057fd_1.conda": {
+      "arch": "ppc",
+      "build": "h00057fd_1",
+      "build_number": 1,
+      "depends": [],
+      "license": "MIT",
+      "md5": "b76b744925f7872048f62de449cf31d3",
+      "name": "cpp-tabulate",
+      "platform": "linux",
+      "sha256": "1b8663d910b9bbd13149635c196ffcd45ce5b095e2fb89ad7fd5dc8ef78ae43f",
+      "size": 47216,
+      "subdir": "linux-ppc",
+      "timestamp": 1737043283656,
+      "version": "1.5"
+    },
+    "perl-5.36.3-h00057fd_7.conda": {
+      "arch": "ppc",
+      "build": "h00057fd_7",
+      "build_number": 7,
+      "depends": [],
+      "license": "GPL-1.0-or-later OR Artistic-1.0-Perl",
+      "md5": "88529e9495b552cd443cd532352cc38f",
+      "name": "perl",
+      "platform": "linux",
+      "sha256": "4c53e2a2ad1c52310cdd6b22d091984aa45d73b290a858505ef26741fc7769b8",
+      "size": 14232733,
+      "subdir": "linux-ppc",
+      "timestamp": 1737054026792,
+      "version": "5.36.3"
     }
   },
   "repodata_version": 2
