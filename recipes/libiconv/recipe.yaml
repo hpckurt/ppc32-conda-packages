@@ -1,0 +1,106 @@
+context:
+  version: "1.17"
+
+recipe:
+  name: libiconv-split
+  version: ${{ version }}
+
+cache:
+  source:
+    url: http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${{ version }}.tar.gz
+    sha256: 8f74213b56238c85a50a5329f77e06198771e70dd9a739779f4c02f65d971313
+    patches:
+      - glibc.patch  # [linux]
+
+  build:
+    number: 2
+
+  requirements:
+    build:
+      - libtool   # [unix]
+    #- {{ compiler('c') }}
+      - make      # [unix]
+
+outputs:
+  - package: 
+      name: libiconv
+    build:
+    #  run_exports:
+        # Pretty good recently, let's trust them.
+        #   https://abi-laboratory.pro/tracker/timeline/libiconv/
+    #    - {{ pin_subpackage('libiconv') }}
+    requirements:
+      build:
+        - libtool   # [unix]
+       # - {{ compiler('c') }}
+        - make      # [unix]
+        - jq
+
+    tests:
+      #requirements:
+        #- jq  # [unix]
+      - script:
+        # Ensuring iconv executable is not present.
+        # Otherwise the included license is wrong and should be GPL-3.0-only.
+        - test ! -f ${PREFIX}/bin/iconv                   # [unix]
+        # Ensuring libiconv documentation and man pages is not present.
+        # Otherwise inlcuded license is wrong and should be GPL-3.0-only.
+        #- test_man_files=$(jq '.files[] | select( . | startswith("share/man"))' $CONDA_PREFIX/conda-meta/{{ PKG_NAME }}-{{ PKG_VERSION }}-${PKG_BUILD_STRING}.json)  # [unix]
+        #- if [[ ${test_man_files} ]]; then echo "found GPL licensed files being packaged ${test_man_files}"; exit 1; fi  # [unix]
+        #- test_doc_files=$(jq '.files[] | select( . | startswith("share/doc"))' $CONDA_PREFIX/conda-meta/{{ PKG_NAME }}-{{ PKG_VERSION }}-${PKG_BUILD_STRING}.json)  # [unix]
+        #- if [[ ${test_doc_files} ]]; then echo "found GPL licensed files being packaged ${test_doc_files}"; exit 1; fi  # [unix]
+        # Assert libraries are present
+        - test -f $CONDA_PREFIX/lib/libiconv${SHLIB_EXT}    # [unix]
+        - test -f $CONDA_PREFIX/lib/libcharset${SHLIB_EXT}  # [unix]
+        requirements:
+          run:
+            - jq
+    about:
+      homepage: https://www.gnu.org/software/libiconv/
+      license: LGPL-2.1-only
+      license_file: COPYING.LIB
+      summary: Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)
+  
+  - package: 
+      name: iconv
+    # there is no executable available on windows, see
+    # https://github.com/conda-forge/libiconv-feedstock/pull/7#issuecomment-224392000
+    build:
+    requirements:
+      build:
+        - libtool
+        #- {{ compiler('c') }}
+        - make
+      host:
+        #- {{ pin_subpackage('libiconv', exact=True) }}
+      run:
+        #- {{ pin_subpackage('libiconv', exact=True) }}
+    tests:
+      - script:
+        - iconv --help
+        # print all supported encodings
+        # Ensure we run the built iconv and not the one from the base system.
+        - test "$(command -v iconv)" = "${PREFIX}/bin/iconv"  # [unix]
+        # Test working patched-in UTF-8-MAC encoding.
+    about:
+      homepage: https://www.gnu.org/software/libiconv/
+      license: GPL-3.0-only
+      license_file: COPYING
+      summary: Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)
+
+about:
+  homepage: https://www.gnu.org/software/libiconv/
+  license: GPL-3.0-only AND LGPL-2.1-only
+  license_file:
+    - COPYING
+    - COPYING.LIB
+  summary: Split feedstock providing iconv and libiconv for systems which don't have one (or that cannot convert from/to Unicode.)
+
+extra:
+  feedstock-name: libiconv
+  recipe-maintainers:
+    - ocefpaf
+    - jakirkham
+    - jhamman
+    - scopatz
+    - mbargull

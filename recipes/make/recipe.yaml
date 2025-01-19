@@ -15,13 +15,13 @@ build:
 
 requirements:
   build:
-#    - libtool  # [unix]
+    - libtool  # [unix]
     #- {{ stdlib("c") }}          # [unix]
     #- {{ compiler("c") }}        # [unix]
     # build wants to find `gcc` binary
     #- gcc                        # [win]
-    #- bash  # [unix]
-    #- make  # [build_platform != target_platform]
+    - bash  # [unix]
+    - make  # [build_platform != target_platform]
   host:
   run:
 

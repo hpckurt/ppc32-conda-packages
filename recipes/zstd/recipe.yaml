@@ -1,0 +1,107 @@
+context:
+  version: "1.5.6"
+
+recipe:
+  name: zstd-split
+  version: ${{ version }}
+
+cache:
+  source:
+   - url: https://github.com/facebook/zstd/archive/v${{ version }}.tar.gz
+     sha256: 30f35f71c1203369dc979ecde0400ffea93c27391bfd2ac5a9715d2173d92ff7
+     patches:
+      - 4019.patch
+
+  build:
+    number: 2
+
+  requirements:
+    build:
+    # workaround for https://github.com/conda/conda-build/pull/4867
+    #- {{ compiler('c') }}
+
+outputs:
+  - package: 
+      name: zstd
+   # script: install.sh  # [unix]
+    build:
+        run_exports:
+        # pretty bad removal of symbols in every other micro release:
+        #   https://abi-laboratory.pro/tracker/timeline/zstd/
+        #  Working smoothly since 1.4.x
+       # - {{ pin_subpackage('zstd', max_pin='x.x') }}
+    requirements:
+        build:
+       # - {{ stdlib('c') }}
+       # - {{ compiler('c') }}
+       # - {{ compiler('cxx') }}
+          - ninja
+          - make  # [unix]
+          - cmake-no-system 
+          - cmake
+        host:
+          - zlib
+  - package: 
+      name: zstd-static
+     # script: install.sh  # [unix]
+    requirements:
+      build:
+        #- {{ stdlib('c') }}
+        #- {{ compiler('c') }}
+        #- {{ compiler('cxx') }}
+        - ninja
+        - make  # [unix]
+        - cmake-no-system
+      host:
+        #- {{ pin_subpackage('zstd', exact=True) }}
+      run:
+        #- {{ pin_subpackage('zstd', exact=True) }}
+
+
+#tests:
+ # - files:
+ #     - cf_test/
+ # - script:
+        # shared libraries
+ #     - test -f ${PREFIX}/lib/libzstd.so                  # [linux]
+
+        # absence of static libraries
+  #    - test ! -f ${PREFIX}/lib/libzstd.a                 # [unix]
+
+        # headers
+  #    - test -f ${PREFIX}/include/zstd.h                  # [unix]
+
+        # CLI
+  #    - zstd -be -i5
+
+        # pkgconfig
+  #    - test -f ${PREFIX}/lib/pkgconfig/libzstd.pc              # [unix]
+  #    - export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig            # [unix]
+
+        # cmake
+  #    - cd cf_test
+  #    - cmake $CMAKE_ARGS .   # [unix and (build_platform == target_platform)]
+
+about:
+  homepage: http://www.zstd.net
+  license: BSD-3-Clause
+  license_file: LICENSE
+  summary: Zstandard - Fast real-time compression algorithm
+  description: |
+    Zstandard is a real-time compression algorithm, providing high compression
+    ratios. It offers a very wide range of compression / speed trade-off, while
+    being backed by a very fast decoder. It also offers a special mode for
+    small data, called dictionary compression, and can create dictionaries from
+    any sample set. Zstandard library is provided as open source software using
+    a BSD license.
+  documentation: https://facebook.github.io/zstd/zstd_manual.html
+  repository: https://github.com/facebook/zstd
+
+extra:
+  feedstock-name: zstd
+  recipe-maintainers:
+    - JohanMabille
+    - rmax
+    - msarahan
+    - xhochy
+    - hmaarrfk

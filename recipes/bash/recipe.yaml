@@ -1,0 +1,53 @@
+context:
+  version: "5.2.21"
+  name: "bash"
+
+package:
+  name: "bash"
+  version: ${{ version }}
+
+source:
+  - url: https://ftp.gnu.org/gnu/${{ name }}/${{ name }}-${{ version }}.tar.gz
+    sha256: c8e31bdc59b69aaffc5b36509905ba3e5cbb12747091d27b4b977f078560d5b8
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - gnuconfig  # [unix]
+    #- {{ compiler('c') }}
+    - make
+    - bison
+  host:
+    - readline
+  run:
+    - readline
+
+tests:
+  - script:
+    - bash --version | grep ${{ version }}
+    - test -f $PREFIX/bin/bash
+
+about:
+  homepage: https://www.gnu.org/software/bash/
+  license: GPL-3.0-or-later
+  license_family: GPL
+  license_file: COPYING
+  summary: 'Bourne Again Shell'
+  description: |
+    Bash is the GNU Project's shell. Bash is the Bourne Again SHell.
+    Bash is an sh-compatible shell that incorporates useful features
+    from the Korn shell (ksh) and C shell (csh). It is intended to
+    conform to the IEEE POSIX P1003.2/ISO 9945.2 Shell and Tools standard.
+    It offers functional improvements over sh for both programming and
+    interactive use. In addition, most sh scripts can be run by Bash
+    without modification.
+  documentation: https://www.gnu.org/software/bash/manual/
+  repository: https://git.savannah.gnu.org/cgit/bash.git/
+
+extra:
+  recipe-maintainers:
+    - scopatz
+    - mingwandroid
+    - matthiasdiener
